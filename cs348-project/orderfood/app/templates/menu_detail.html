@@ -1,0 +1,31 @@
+<!-- menu_detail.html -->
+{% extends 'base.html' %}
+{% block title %}{{ menu.menu_name }}{% endblock %}
+{% block content %}
+    <h1>{{ menu.menu_name }} </h1>
+    <ul>
+        {% for food in foods %}
+            <li>
+                {{ food.name }} - {{ food.price }}
+                <button onclick="addToCart({{ food.id }})">Add to Cart</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        function addToCart(foodId) {
+            fetch(`/add_to_cart/?food_id=${foodId}`)
+            .then(response => {
+                if (response.ok) {
+                    alert('Food item has been successfully added to cart!');
+                } else {
+                    alert('Failed to add food item to cart. Please try again later.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to add food item to cart. Please try again later.');
+            });
+        }
+    </script>
+{% endblock %}

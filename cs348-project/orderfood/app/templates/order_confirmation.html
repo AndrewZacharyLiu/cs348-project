@@ -1,0 +1,15 @@
+<!-- order_confirmation.html -->
+{% extends 'base.html' %}
+
+{% block title %}Order Confirmation{% endblock %}
+{% block content %}
+    <h1>Thank you for your order!</h1>
+    <p>Your order has been successfully placed.</p>
+    <button onclick="redirectToHomePage()">Back to Home</button>
+
+    <script>
+        function redirectToHomePage() {
+            window.location.href = '/';  // Change '/' to the URL of your home page
+        }
+    </script>
+{% endblock %}

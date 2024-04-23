@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Order{% endblock %}
+{% block content %}
+    <h1>Edit Order</h1>
+    <form action="{% url 'edit_order_submit' %}" method="post">
+        {% csrf_token %}
+    
+    
+        <strong>Order ID:</strong> {{ order_info.order.id }} <br>
+        <strong>Time Placed:</strong> {{ order_info.order.time_placed }} <br>
+        <strong>Food Items:</strong>
+        <ul>
+            {% for food_item in order_info.foods %}
+                <li>{{ food_item.food.name }} - ${{ food_item.food.price }}</li>
+            {% endfor %}
+        </ul>
+        <strong>Total Price:</strong> ${{ order_info.total_price }} <br>
+        <label for="delivery_time">Desired Delivery Time:</label>
+        <input type="datetime-local" id="delivery_time" name="delivery_time" value="{{ order_info.order.delivery_time|date:'Y-m-d\TH:i' }}" required><br><br>
+        
+        <label for="delivery_location">Delivery Address:</label>
+        <input type="text" id="delivery_location" name="delivery_location" value="{{ order_info.order.delivery_location }}" required><br><br>
+    
+        <button type="submit">Update Order</button>
+        <input type="hidden" name="order_id" value={{ order_info.order.id }} readonly>
+    </form>
+{% endblock %}

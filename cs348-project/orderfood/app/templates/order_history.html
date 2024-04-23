@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Order History{% endblock %}
+{% block content %}
+    <h1>Order History</h1>
+    <ul>
+        {% for order_info in order_details %}
+            <li>
+                <strong>Order ID:</strong> {{ order_info.order.id }} <br>
+                <strong>Delivery Location:</strong> {{ order_info.order.delivery_location }} <br>
+                <strong>Delivery Time:</strong> {{ order_info.order.delivery_time }} <br>
+                <strong>Time Placed:</strong> {{ order_info.order.time_placed }} <br>
+                <strong>Food Items:</strong>
+                <ul>
+                    {% for food_item in order_info.foods %}
+                        <li>{{ food_item.food.name }} - ${{ food_item.food.price }}</li>
+                    {% endfor %}
+                </ul>
+                <strong>Total Price:</strong> ${{ order_info.total_price }} <br>
+                <form action="{% url 'edit_order' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value={{ order_info.order.id }} readonly>
+                    <button type="submit">Edit</button>
+                </form>
+                
+                <!-- Delete button -->
+                <form action="{% url 'delete_order' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value={{ order_info.order.id }} readonly>
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

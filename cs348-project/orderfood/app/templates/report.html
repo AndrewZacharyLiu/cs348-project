@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Report{% endblock %}
+{% block content %}
+
+    <h1>Popularity Report </h1>
+    <form method="get">
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_datetime" value="{{ start_datetime }}">
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_datetime" value="{{ end_datetime }}">
+        <button type="submit">Submit</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Total Purchases</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food_name, order_count in report_data %}
+            <tr>
+                <td>{{ food_name }}</td>
+                <td>{{ order_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,12 @@
+<!-- menu_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Menu{% endblock %}
+{% block content %}
+    <h1>Menus</h1>
+    <ul>
+        {% for menu in menus %}
+        <li><a href="{% url 'menu_detail'%}?menu_id={{ menu.id }}">{{ menu.menu_name }} </a> - {{ menu.restaurant.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
